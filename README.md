@@ -1,4 +1,5 @@
 Final Project Description
+
 The Password Strength Analyzer is a simple Python tool that helps users check the strength and security of their passwords. It analyzes passwords against common weaknesses such as short length, lack of variety in characters, and predictable patterns. The program also provides feedback and suggestions to help users create stronger passwords that are harder for attackers to guess. This project supports cybersecurity awareness by automating password evaluation, typically done manually.
 How the Program Works
 1.	The user enters a password into the program.
