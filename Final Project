@@ -1,0 +1,78 @@
+# Password Strength Analyzer
+# This program checks how strong a password is and gives feedback.
+
+import re  # regular expressions help detect patterns
+
+def check_password_strength(password):
+    score = 0
+    suggestions = []
+
+    # Check password length
+    if len(password) < 8:
+        suggestions.append("Make your password at least 8 characters long.")
+    else:
+        score += 1
+
+    # Check for lowercase letters
+    if re.search("[a-z]", password):
+        score += 1
+    else:
+        suggestions.append("Add lowercase letters.")
+
+    # Check for uppercase letters
+    if re.search("[A-Z]", password):
+        score += 1
+    else:
+        suggestions.append("Add uppercase letters.")
+
+    # Check for numbers
+    if re.search("[0-9]", password):
+        score += 1
+    else:
+        suggestions.append("Add numbers.")
+
+    # Check for special characters
+    if re.search("[!@#$%^&*(),.?\":{}|<>]", password):
+        score += 1
+    else:
+        suggestions.append("Add special characters (like !, @, #, $).")
+
+    # Check for common patterns
+    common_passwords = ["password", "123456", "qwerty", "abc123", "letmein"]
+    if password.lower() in common_passwords:
+        suggestions.append("Avoid using common passwords like 'password' or '123456'.")
+        score = 1  # weak password if it's common
+
+    # Check for repeating or sequential characters
+    if re.search(r"(.)\1\1", password):  # three or more of the same in a row
+        suggestions.append("Avoid repeating characters.")
+    if re.search(r"(123|abc|qwerty)", password.lower()):
+        suggestions.append("Avoid easy-to-guess patterns like '123' or 'abc'.")
+
+    # Strength rating
+    if score <= 2:
+        strength = "Weak"
+    elif score == 3:
+        strength = "Moderate"
+    else:
+        strength = "Strong"
+
+    # Show results
+    print("\nPassword Analysis:")
+    print(f"Strength: {strength}")
+    print("Score:", score, "/ 5")
+
+    if suggestions:
+        print("\nSuggestions to improve your password:")
+        for s in suggestions:
+            print("-", s)
+    else:
+        print("\nGreat job! Your password looks strong.")
+
+# Main program loop
+while True:
+    user_password = input("\nEnter a password to analyze (or type 'exit' to quit): ")
+    if user_password.lower() == "exit":
+        print("Goodbye!")
+        break
+    check_password_strength(user_password)
